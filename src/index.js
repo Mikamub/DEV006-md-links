@@ -1,22 +1,75 @@
-const fs = require('fs');
+const {
+  checkPath,
+  itsAbsolute,
+  convertAbsolute,
+  verifyRouteType,
+  extensionCheck,
+  readMD,
+  extractLinks,
+  validateLinks
+} = require('./functions.js');
 
 const mdLinks = (path, options) => {
-  return new Promise((resolve, reject) => {// resolve, reject estan relacionados a then y catch, pero son funciones, callbacks
-    // identificar si la ruta existe.
-    if (fs.existsSync(path)) {
+  let filepath; // Variable global para almacenar el filepath
 
-    } else {
-      // si no existe la ruta es reject, rechaza la promesa
-      reject('La ruta no existe')
-    }
+  return new Promise((resolve, reject) => {
+    itsAbsolute(path)
+      .then((absolutePath) => {
+        filepath = absolutePath; // Asignar el valor del filepath a la variable global
+        return checkPath(absolutePath);
+      })
+      .then((path) => {
+        return extensionCheck(path);
+      })
+      .then((isMD) => {
+        if (!isMD) {
+          throw new Error('La extensión del archivo no es .md');
+        }
+        return verifyRouteType(path);
+      })
+      .then((routeType) => {
+        // console.log('Tipo de ruta:', routeType);
 
-
-
-    //Revisar si la ruta es absoluta o relativa
+        return readMD(path);
+      })
+      .then((data) => {
+        const resultLinks = extractLinks(data, filepath);
+        if (options && options.validate) {
+          return validateLinks(resultLinks)
+            .then((validatedLinks) => {
+              return validatedLinks;
+            })
+            .catch((error) => {
+              console.error('Error en la validación de los enlaces:', error);
+              return resultLinks;
+            });
+        } else {
+          return resultLinks;
+        }
+      })
+      .then((links) => {
+        return resolve(links);
+      })
+      .catch((error) => {
+        console.error(error);
+        return reject('Esto está fallando');
+      });
   });
-}
-
-module.exports = {
-  mdLinks
-  // ...
 };
+
+const path = 'C:\\Users\\mikam\\DEV006-md-links\\test\\hola.md';
+const options = { validate: true };
+
+mdLinks(path, options)
+  .then((data) => {
+    if (Array.isArray(data)) {
+      console.log('Data', data);
+    } else {
+      console.log('Error: El resultado no es un arreglo');
+    }
+  })
+  .catch((error) => {
+    console.log('error', error);
+  });
+
+  module.exports = {mdLinks};

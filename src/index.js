@@ -57,8 +57,8 @@ const mdLinks = (path, options) => {
   });
 };
 
-const path = 'C:\\Users\\mikam\\DEV006-md-links\\test\\hola.md';
-const options = { validate: true };
+const path = 'C:\\Users\\mikam\\DEV006-md-links\\test\\holaRoto.md';
+const options = { validate: false };
 
 mdLinks(path, options)
   .then((data) => {

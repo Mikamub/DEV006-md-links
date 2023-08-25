@@ -2,6 +2,17 @@
 
 `mdLinks` es una biblioteca que te permite analizar archivos Markdown y extraer los enlaces que contiene. Además, ofrece la opción de validar la disponibilidad de estos enlaces en línea. Esta biblioteca es útil para desarrolladores que desean trabajar con archivos Markdown y necesitan extraer y validar enlaces de manera programática.
 
+## Índice
+
+- [1. Instalación](#instalación)
+- [2. Uso](#uso)
+- [2.1 Como módulo en tu código](#como-modulo-en-tu-codigo)
+- [2.2 Como línea de comandos](#como-línea-de-comandos)
+- [3. API](#api)
+- [3.1 Ejemplos](#ejemplos)
+- [3.1.1 Ejemplo 1: Obtener enlaces sin validación](#ejemplo-1-obtener-enlaces-sin-validación)
+- [3.1.2 Ejemplo 2: Obtener enlaces con validación](#ejemplo-2-obtener-enlaces-con-validación)
+
 ## Instalación
 
 Para utilizar `mdLinks`, primero debes instalarlo en tu proyecto. Puedes hacerlo a través de npm (Node Package Manager). Abre tu terminal y ejecuta el siguiente comando:

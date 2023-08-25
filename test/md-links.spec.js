@@ -78,7 +78,6 @@ describe('Test de las funciones', () => {
     test('debería resolver con los datos del archivo si se lee correctamente', () => {
       const route = 'C:\\Users\\mikam\\DEV006-md-links\\test\\hola.md';
       const expected = '[Markdown](https://es.wikipedia.org/wiki/Markdown), [Node.js](https://nodejs.org/)';
-
       return readMD(route).then(data => {
         expect(data).toBe(expected);
       });
@@ -86,7 +85,6 @@ describe('Test de las funciones', () => {
 
     test('debería rechazar con un mensaje de error si ocurre algún error al leer el archivo', () => {
       const route = 'C:\\Users\\mikam\\DEV006-md-links\\test\\hola.md';
-
       return readMD(route).catch(error => {
         expect(error).toMatch('error');
       });
